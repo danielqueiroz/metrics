@@ -9,14 +9,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.time.LocalDateTime;
-
 @RunWith(SpringRunner.class)
 public class MachineMapperTest {
 
     @Test
     public void test_domain_to_dto() throws RequiredValueException {
-        Machine machine = new Machine("key", "name", LocalDateTime.now());
+        Machine machine = new Machine("key", "name");
         MachineDTO machineDTO = MachineMapper.INSTANCE.toDTO(machine);
         Assert.assertEquals(machine.getId(), machineDTO.getKey());
         Assert.assertEquals(machine.getName(), machineDTO.getName());

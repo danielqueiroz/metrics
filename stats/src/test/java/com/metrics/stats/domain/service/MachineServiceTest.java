@@ -26,7 +26,7 @@ public class MachineServiceTest {
 
     @Test
     public void test_return_entity_by_id() throws RequiredValueException {
-        Machine machine = new Machine("key", "name", null);
+        Machine machine = new Machine("key", "name");
         MachineRepository machineRepository = mock(MachineRepository.class);
         when(machineRepository.findById("key")).thenReturn(Optional.of(machine));
         MachineService machineService = new MachineServiceImpl(machineRepository);

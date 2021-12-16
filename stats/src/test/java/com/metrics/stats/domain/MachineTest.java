@@ -13,38 +13,28 @@ public class MachineTest {
 
     @Test
     public void test_valid_machine_domain() throws RequiredValueException {
-        Machine machine = new Machine("key", "name", null);
+        Machine machine = new Machine("key", "name");
         Assert.assertEquals("key", machine.getId());
         Assert.assertEquals("name", machine.getName());
-        Assert.assertNotNull(machine.getLocalDateTime());
-    }
-
-    @Test
-    public void test_valid_machine_domain_with_local_date_time() throws RequiredValueException {
-        LocalDateTime localDateTime = LocalDateTime.now();
-        Machine machine = new Machine("key", "name", localDateTime);
-        Assert.assertEquals("key", machine.getId());
-        Assert.assertEquals("name", machine.getName());
-        Assert.assertEquals(localDateTime, machine.getLocalDateTime());
     }
 
     @Test(expected = RequiredValueException.class)
     public void test_missing_id() throws RequiredValueException {
-        new Machine(null, "name", LocalDateTime.now());
+        new Machine(null, "name");
     }
 
     @Test(expected = RequiredValueException.class)
     public void test_missing_name() throws RequiredValueException {
-        new Machine("id", null, null);
+        new Machine("id", null);
     }
 
     @Test(expected = RequiredValueException.class)
     public void test_empty_id() throws RequiredValueException {
-        new Machine("   ", "name", null);
+        new Machine("   ", "name");
     }
 
     @Test(expected = RequiredValueException.class)
     public void test_empty_name() throws RequiredValueException {
-        new Machine("id", "   ", null);
+        new Machine("id", "   ");
     }
 }

@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,10 +29,9 @@ public class MachineCSVHelper {
                      CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim())) {
             List<Machine> machines = new ArrayList<>();
             Iterable<CSVRecord> csvRecords = csvParser.getRecords();
-            LocalDateTime currentTime = LocalDateTime.now();
 
             for (CSVRecord csvRecord : csvRecords) {
-                machines.add(new Machine(csvRecord.get("key"), csvRecord.get("name"), currentTime));
+                machines.add(new Machine(csvRecord.get("key"), csvRecord.get("name")));
             }
 
             return machines;

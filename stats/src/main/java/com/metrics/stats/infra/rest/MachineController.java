@@ -17,7 +17,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +43,7 @@ public class MachineController {
 
         List<Machine> machines = new ArrayList<>();
         for (MachineDTO machineDto : machinesDto) {
-            Machine machine = new Machine(machineDto.getKey(), machineDto.getName(), LocalDateTime.now());
+            Machine machine = new Machine(machineDto.getKey(), machineDto.getName());
             machines.add(machine);
         }
         machineService.insert(machines);
