@@ -2,9 +2,13 @@ package com.metrics.stats.infra.rest;
 
 import com.metrics.stats.domain.Machine;
 import com.metrics.stats.domain.exception.RequiredValueException;
+import com.metrics.stats.domain.repository.ParameterRepository;
 import com.metrics.stats.domain.service.MachineService;
+import com.metrics.stats.domain.service.ParameterService;
 import com.metrics.stats.infra.rest.dto.MachineDTO;
+import com.metrics.stats.infra.rest.dto.ParametersDTO;
 import com.metrics.stats.infra.rest.dto.mapper.MachineMapper;
+import com.metrics.stats.infra.rest.dto.mapper.ParameterMapper;
 import com.metrics.stats.infra.rest.helper.MachineCSVHelper;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -27,9 +31,11 @@ import java.util.List;
 public class MachineController {
 
     private final MachineService machineService;
+    private final ParameterService parameterService;
 
-    public MachineController(MachineService machineService) {
+    public MachineController(MachineService machineService, ParameterService parameterService) {
         this.machineService = machineService;
+        this.parameterService = parameterService;
     }
 
     @PostMapping
@@ -78,5 +84,23 @@ public class MachineController {
     @ResponseStatus(HttpStatus.OK)
     public MachineDTO findById(@PathVariable String id) {
         return MachineMapper.INSTANCE.toDTO(machineService.findById(id));
+    }
+
+    @GetMapping("/latestParameters")
+    @ApiResponses({
+            @ApiResponse(description = "OK", responseCode = "200")
+    })
+    @ResponseStatus(HttpStatus.OK)
+    public List<ParametersDTO> findLatestParametersForAllMachines() {
+        return ParameterMapper.INSTANCE.toDtos(parameterService.findLatestParametersByMachineId(null));
+    }
+
+    @GetMapping("/{id}/latestParameters")
+    @ApiResponses({
+            @ApiResponse(description = "OK", responseCode = "200")
+    })
+    @ResponseStatus(HttpStatus.OK)
+    public ParametersDTO findLatestParametersByMachineId(@PathVariable String id) {
+        return ParameterMapper.INSTANCE.toDto(parameterService.findLatestParametersByMachineId(id));
     }
 }

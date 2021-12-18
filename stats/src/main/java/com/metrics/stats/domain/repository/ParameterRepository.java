@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface ParameterRepository {
     void insert(List<Parameter> parameterList);
+    List<Parameter> findLatestParametersByMachineId(String machineId);
 }

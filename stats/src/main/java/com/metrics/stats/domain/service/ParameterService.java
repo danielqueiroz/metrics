@@ -4,6 +4,7 @@ import com.metrics.stats.domain.Parameter;
 
 import java.util.List;
 
-public interface MachineParameterService {
+public interface ParameterService {
     void insert(List<Parameter> machineList);
+    List<Parameter> findLatestParametersByMachineId(String machineId);
 }
