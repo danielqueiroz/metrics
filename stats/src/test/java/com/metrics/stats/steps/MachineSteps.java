@@ -10,6 +10,8 @@ import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.jdbc.core.JdbcTemplate;
+
 import java.util.Collections;
 import java.util.Optional;
 
@@ -19,10 +21,12 @@ public class MachineSteps extends CommonSteps {
 
     @Autowired
     private MachineRepository machineRepository;
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
     @Given("the machine db has no data")
     public void clear() {
-        machineRepository.deleteAll();
+        jdbcTemplate.update("delete from machine");
     }
 
     @Given("the client wants to register the machine {string}")

@@ -4,6 +4,7 @@ import com.metrics.stats.domain.Machine;
 import com.metrics.stats.domain.exception.EntityNotFoundException;
 import com.metrics.stats.domain.repository.MachineRepository;
 import com.metrics.stats.domain.service.MachineService;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
