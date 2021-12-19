@@ -63,12 +63,9 @@ public class ParameterRepositoryImpl implements ParameterRepository {
                 "param1.reported_time = param2. latest_reported_time " +
             "order by param1.machine_id ";
 
-        return jdbcTemplate.query(sql, new RowMapper<Parameter>() {
-            @Override
-            public Parameter mapRow(ResultSet rs, int rowNum) throws SQLException {
-                return new Parameter(rs.getString(1), rs.getString(2),
-                        rs.getTimestamp(4).toLocalDateTime(), rs.getLong(3));
-            }
-        }, machineId, machineId, machineId, machineId);
+        return jdbcTemplate.query(sql,
+                (rs, rowNum) -> new Parameter(rs.getString(1), rs.getString(2),
+                rs.getTimestamp(4).toLocalDateTime(), rs.getLong(3)),
+                machineId, machineId, machineId, machineId);
     }
 }

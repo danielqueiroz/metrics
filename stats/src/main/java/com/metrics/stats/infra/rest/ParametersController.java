@@ -5,7 +5,9 @@ import com.metrics.stats.domain.Parameter;
 import com.metrics.stats.domain.exception.RequiredValueException;
 import com.metrics.stats.domain.service.ParameterService;
 import com.metrics.stats.infra.rest.dto.MachineDTO;
+import com.metrics.stats.infra.rest.dto.ParameterInfoDTO;
 import com.metrics.stats.infra.rest.dto.ParametersDTO;
+import com.metrics.stats.infra.rest.dto.mapper.ParameterInfoMapper;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,5 +47,14 @@ public class ParametersController {
         builder.setParameters(parametersDTO.getParameters());
         builder.setReceivedTime(LocalDateTime.now());
         parameterService.insert(builder.build());
+    }
+
+    @GetMapping("/computedInfo")
+    @ResponseStatus(HttpStatus.OK)
+    public List<ParameterInfoDTO> findParametersInfo(@RequestParam(required = false) String machineId,
+                                                     @RequestParam(required = false) String parameterName,
+                                                     @RequestParam Integer lastMinutes) {
+        LocalDateTime dateTime = LocalDateTime.now().minus(lastMinutes, ChronoUnit.MINUTES);
+        return ParameterInfoMapper.INSTANCE.toDto(parameterService.findComputedParameterInfo(machineId, parameterName, dateTime));
     }
 }
