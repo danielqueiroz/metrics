@@ -10,9 +10,9 @@ public class Parameter {
     private String machineId;
     private String name;
     private LocalDateTime reportedTime;
-    private Long value;
+    private Double value;
 
-    public Parameter(String machineId, String name, LocalDateTime reportedTime, Long value) {
+    public Parameter(String machineId, String name, LocalDateTime reportedTime, Double value) {
         this.machineId = machineId;
         this.name = name;
         this.reportedTime = reportedTime;
@@ -31,13 +31,13 @@ public class Parameter {
         return reportedTime;
     }
 
-    public Long getValue() {
+    public Double getValue() {
         return value;
     }
 
     public static class Builder {
         private String machineKey;
-        private Map<String, Long> parametersMap;
+        private Map<String, Double> parametersMap;
         private LocalDateTime receivedTime;
 
         public Builder setMachineKey(String machineKey) {
@@ -45,7 +45,7 @@ public class Parameter {
             return this;
         }
 
-        public Builder setParameters(Map<String, Long> parameters) {
+        public Builder setParameters(Map<String, Double> parameters) {
             this.parametersMap = parameters;
             return this;
         }

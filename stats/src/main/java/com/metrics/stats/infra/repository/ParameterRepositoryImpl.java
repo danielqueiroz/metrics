@@ -35,7 +35,7 @@ public class ParameterRepositoryImpl implements ParameterRepository {
                 Parameter parameter = parameterList.get(i);
                 ps.setString(1, parameter.getMachineId());
                 ps.setString(2, parameter.getName());
-                ps.setLong(3, parameter.getValue());
+                ps.setDouble(3, parameter.getValue());
                 ps.setTimestamp(4, Timestamp.valueOf(parameter.getReportedTime()));
             }
 
@@ -65,7 +65,7 @@ public class ParameterRepositoryImpl implements ParameterRepository {
 
         return jdbcTemplate.query(sql,
                 (rs, rowNum) -> new Parameter(rs.getString(1), rs.getString(2),
-                rs.getTimestamp(4).toLocalDateTime(), rs.getLong(3)),
+                rs.getTimestamp(4).toLocalDateTime(), rs.getDouble(3)),
                 machineId, machineId, machineId, machineId);
     }
 }

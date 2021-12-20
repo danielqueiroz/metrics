@@ -1,0 +1,8 @@
+{
+  "machineKey": "lisboa",
+  "parameters": {
+    "cpu": 20,
+    "memory": 20,
+    "disk": 20
+  }
+}

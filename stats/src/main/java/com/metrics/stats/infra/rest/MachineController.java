@@ -56,9 +56,9 @@ public class MachineController {
     }
 
     @PostMapping(value = "/upload", consumes = "multipart/form-data")
-    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ResponseStatus(HttpStatus.OK)
     @ApiResponses({
-            @ApiResponse(description = "ACCEPTED", responseCode = "202"),
+            @ApiResponse(description = "OK", responseCode = "200"),
             @ApiResponse(description = "BAD REQUEST", responseCode = "400"),
             @ApiResponse(description = "INTERNAL SERVER ERROR", responseCode = "500")
     })

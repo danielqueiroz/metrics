@@ -27,7 +27,7 @@ public class ParameterStatsRepositoryImpl implements ParameterStatsRepository {
     public List<ParameterStats> findParameterStats(String machineId, String parameterName, LocalDateTime from) {
 
         String sql = "" +
-                "SELECT MACHINE_ID, NAME, AVG(VALUE) AS AVERAGE, MIN(VALUE) AS MINIMUM, MAX(VALUE) AS MAXIMUM, COUNT(1) AS TOTAL " +
+                "SELECT MACHINE_ID, NAME, TRUNC(AVG(VALUE),2) AS AVERAGE, MIN(VALUE) AS MINIMUM, MAX(VALUE) AS MAXIMUM, COUNT(1) AS TOTAL " +
                 "FROM PARAMETER " +
                 "WHERE " +
                 "  (? IS NULL OR MACHINE_ID = ?) AND " +
@@ -59,7 +59,7 @@ public class ParameterStatsRepositoryImpl implements ParameterStatsRepository {
             String inSql = String.join(",", Collections.nCopies(indexes.size(), "?"));
 
             String sqlMedian = "" +
-                    "SELECT AVG(VALUE) AS MEDIAN " +
+                    "SELECT TRUNC(AVG(VALUE),2) AS MEDIAN " +
                     "FROM ( " +
                     "SELECT VALUE, ROWNUM() AS LINE_NUMBER " +
                     "FROM PARAMETER " +

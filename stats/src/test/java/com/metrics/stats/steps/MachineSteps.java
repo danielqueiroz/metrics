@@ -3,6 +3,7 @@ package com.metrics.stats.steps;
 import com.metrics.stats.domain.Machine;
 import com.metrics.stats.domain.repository.MachineRepository;
 import com.metrics.stats.infra.rest.dto.MachineDTO;
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -52,5 +53,15 @@ public class MachineSteps extends CommonSteps {
     @And("the response status code is {int}")
     public void andTheStatusCodeIs(int statusCode) {
         Assert.assertEquals(HttpStatus.valueOf(statusCode), response.getStatusCode());
+    }
+
+    @Then("the machines inserted are")
+    public void theParametersInsertedAre(DataTable dataTable) {
+        dataTable.asMaps().forEach(map -> {
+            String sql = "select count(1) from machine where id=? and name=?";
+            Assert.assertEquals(Integer.valueOf(1),
+                    jdbcTemplate.queryForObject(sql, Integer.class, map.get("id"),
+                            map.get("name")));
+        });
     }
 }

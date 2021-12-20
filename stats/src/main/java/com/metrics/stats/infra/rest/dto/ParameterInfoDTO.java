@@ -1,13 +1,16 @@
 package com.metrics.stats.infra.rest.dto;
 
-public class ParameterInfoDTO {
+import java.io.Serializable;
+import java.util.Objects;
+
+public class ParameterInfoDTO implements Serializable {
 
     private String machineId;
     private String parameterName;
     private Double average;
     private Double median;
-    private Long min;
-    private Long max;
+    private Double min;
+    private Double max;
 
     public String getMachineId() {
         return machineId;
@@ -41,19 +44,32 @@ public class ParameterInfoDTO {
         this.median = median;
     }
 
-    public Long getMin() {
+    public Double getMin() {
         return min;
     }
 
-    public void setMin(Long min) {
+    public void setMin(Double min) {
         this.min = min;
     }
 
-    public Long getMax() {
+    public Double getMax() {
         return max;
     }
 
-    public void setMax(Long max) {
+    public void setMax(Double max) {
         this.max = max;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ParameterInfoDTO that = (ParameterInfoDTO) o;
+        return machineId.equals(that.machineId) && parameterName.equals(that.parameterName) && average.equals(that.average) && median.equals(that.median) && min.equals(that.min) && max.equals(that.max);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(machineId, parameterName, average, median, min, max);
     }
 }

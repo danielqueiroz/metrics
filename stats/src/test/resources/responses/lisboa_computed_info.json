@@ -1,0 +1,10 @@
+[
+  {
+    "machineId": "lisboa",
+    "parameterName": "memory",
+    "average": 23.33,
+    "median": 20,
+    "min": 10,
+    "max": 40
+  }
+]
